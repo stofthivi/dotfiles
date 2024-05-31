@@ -8,7 +8,13 @@
         ./hardware-configuration.nix
         ({ pkgs, ... }: {
 
-          system.stateVersion = "24.05";
+          system = {
+            stateVersion = "24.05";
+            switch = {
+              enable = false;
+              enableNg = true;
+            };
+          };
 
           nix = {
             settings.experimental-features = [ "nix-command" "flakes" ];
@@ -59,6 +65,7 @@
           security = {
             doas.enable = true;
             sudo.enable = false;
+	    rtkit.enable = true;
           };
 
           services = {
@@ -121,8 +128,9 @@
               xdg-utils
               # languages, programming utils
               nil
-              lua-language-server
               nixpkgs-fmt
+	      lua-language-server
+              # games, emulators
               # wine-staging
             ];
           };
@@ -133,6 +141,7 @@
           ];
 
           programs = {
+            gnupg.agent.enable = true;
             adb.enable = true;
             git.enable = true;
             light.enable = true;

@@ -7,7 +7,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require'lazy'.setup({
+require 'lazy'.setup({
 	'folke/lazy.nvim',
 	{
 		'neovim/nvim-lspconfig',
@@ -21,7 +21,6 @@ require'lazy'.setup({
 		config = function()
 			require 'mini.basics'.setup {}
 			require 'mini.pairs'.setup {}
-			require 'mini.comment'.setup { mappings = { comment_line = "<C-/>", comment_visual = "<C-/>" } }
 		end
 	},
 	{
@@ -46,10 +45,6 @@ require'lazy'.setup({
 		'nvim-lualine/lualine.nvim',
 		opts = {}
 	},
-	{
-		'navarasu/onedark.nvim',
-		opts = { style = 'darker' },
-	},
 })
 
 vim.g.mapleader = " "
@@ -58,18 +53,9 @@ vim.keymap.set('n', '<leader>f', '<cmd>lua vim.lsp.buf.format{async=true}<CR>', 
 vim.opt.clipboard = "unnamedplus"
 
 
-require('onedark').load()
-
 vim.api.nvim_create_autocmd({ 'FileType' }, {
 	pattern = 'hyprlang',
 	callback = function()
-		vim.api.nvim_buf_set_option(0, "cms", "# %s")
-	end
-})
-
-vim.api.nvim_create_autocmd({ 'FileType' }, {
-	pattern = 'nix',
-	callback = function()
-		vim.api.nvim_buf_set_option(0, "cms", "# %s")
+		vim.api.nvim_buf_set_option(0, 'cms', '# %s')
 	end
 })
