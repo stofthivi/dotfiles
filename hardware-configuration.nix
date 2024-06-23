@@ -10,7 +10,7 @@
     "/boot" = {
       device = "/dev/disk/by-label/boot";
       fsType = "vfat";
-      options = [ "defaults" "discard" ];
+      options = [ "defaults" "fmask=0022" "dmask=0022" "discard" ];
     };
   };
 }

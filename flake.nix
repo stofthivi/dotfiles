@@ -15,7 +15,7 @@
               enableNg = true;
             };
           };
-
+	  
           nix = {
             settings.experimental-features = [ "nix-command" "flakes" ];
             optimise.automatic = true;
@@ -23,7 +23,6 @@
 
           boot = {
             kernelPackages = pkgs.linuxPackages_latest;
-            kernelParams = [ "rw" "nowatchdog" "modprobe.blacklist=sp5100_tc" ];
             initrd.systemd.enable = true;
             loader = {
               timeout = 3;
@@ -37,7 +36,7 @@
           };
 
           hardware.bluetooth.enable = true;
-          hardware.opengl.driSupport32Bit = true;
+          hardware.graphics.enable32Bit = true;
 
           time.timeZone = "Asia/Yekaterinburg";
 
@@ -73,6 +72,7 @@
             pipewire = {
               enable = true;
               pulse.enable = true;
+              jack.enable = true;
             };
             udisks2.enable = true;
             seatd.enable = true;
@@ -130,6 +130,8 @@
               nil
               nixpkgs-fmt
 	      lua-language-server
+	      gcc14
+	      python3
               # games, emulators
               # wine-staging
             ];
@@ -149,13 +151,13 @@
             nano.enable = false;
             fish = {
               enable = true;
-              loginShellInit = "test (tty) = /dev/tty1; and exec Hyprland";
+              loginShellInit = "test (tty) = /dev/tty1 ;and exec Hyprland";
               shellAliases = {
                 x = "doas";
                 r = "ranger";
                 p = "python";
-                dl = "yt-dlp -x --audio-format mp3 -o '%(title)s.%(ext)s'";
-                dla = "yt-dlp -x --add-metadata --audio-format mp3 -o '%(title)s.%(ext)s'";
+                dl = "yt-dlp -x -o '%(title)s.%(ext)s'";
+                dla = "yt-dlp -x --add-metadata -o '%(title)s.%(ext)s'";
                 um = "udisksctl mount -b /dev/sda1";
                 uu = "udisksctl unmount -b /dev/sda1";
                 pm = "jmtpfs ~/media";
