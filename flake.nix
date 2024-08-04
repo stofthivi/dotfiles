@@ -15,7 +15,7 @@
               enableNg = true;
             };
           };
-	  
+
           nix = {
             settings.experimental-features = [ "nix-command" "flakes" ];
             optimise.automatic = true;
@@ -35,17 +35,15 @@
             };
           };
 
-          hardware.bluetooth.enable = true;
-          hardware.graphics.enable32Bit = true;
+          hardware = {
+            bluetooth.enable = true;
+            graphics.enable32Bit = true;
+            amdgpu.initrd.enable = true;
+          };
 
           time.timeZone = "Asia/Yekaterinburg";
 
-          documentation = {
-            enable = false;
-            doc.enable = false;
-            nixos.enable = false;
-            info.enable = false;
-          };
+          documentation.enable = false;
 
           systemd.network.wait-online.enable = false;
           networking = {
@@ -64,7 +62,7 @@
           security = {
             doas.enable = true;
             sudo.enable = false;
-	    rtkit.enable = true;
+            rtkit.enable = true;
           };
 
           services = {
@@ -72,11 +70,12 @@
             pipewire = {
               enable = true;
               pulse.enable = true;
-              jack.enable = true;
             };
             udisks2.enable = true;
             seatd.enable = true;
             gvfs.enable = true;
+            hypridle.enable = true;
+            playerctld.enable = true;
           };
 
           users = {
@@ -95,8 +94,8 @@
               telegram-desktop
               qbittorrent
               (mpv.override { scripts = [ mpvScripts.mpris ]; })
-              bitwarden
-              libreoffice
+              bitwarden-desktop
+              libreoffice-qt6-fresh
               hunspell
               hunspellDicts.ru-ru
               hunspellDicts.en-us
@@ -116,12 +115,9 @@
               libnotify
               p7zip
               psmisc
-              waybar
               fuzzel
               mako
-              playerctl
               hyprshade
-              hypridle
               hyprshot
               wl-clipboard
               jmtpfs
@@ -129,11 +125,12 @@
               # languages, programming utils
               nil
               nixpkgs-fmt
-	      lua-language-server
-	      gcc14
-	      python3
+              lua-language-server
+              gcc14
+              python313
               # games, emulators
-              # wine-staging
+              wine-staging
+              winetricks
             ];
           };
 
@@ -147,6 +144,7 @@
             adb.enable = true;
             git.enable = true;
             light.enable = true;
+            waybar.enable = true;
             command-not-found.enable = false;
             nano.enable = false;
             fish = {
